@@ -1,0 +1,25 @@
+{
+  "name": "lf10",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.17",
+    "eslint": "^8.56.0",
+    "postcss": "^8.4.35",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.1.0"
+  },
+  "prettier": {
+    "semi": true,
+    "useTabs": true,
+    "tabWidth": 2,
+    "singleQuote": false
+  }
+}
