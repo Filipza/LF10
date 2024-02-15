@@ -15,8 +15,14 @@ function fillSuggestionBox(searchRes) {
 	let plz = searchRes[0]?.address?.postcode;
 	let suburb = searchRes[0]?.address?.suburb ?? searchRes[0]?.address?.city_district;
 	let city = searchRes[0]?.address?.city ?? searchRes[0]?.address?.town;
+	
+	if (typeof plz == "undefined") {
+		suggestionBox.innerText = "Unbekannte Adresse 😢"; 
+	}
+	else {
+		suggestionBox.innerText = `Es wird gesucht in: ${plz} ${suburb}, ${city}`;
+	}
 
-	suggestionBox.innerText = `${plz} ${suburb}, ${city}`;
 }
 
 searchField.addEventListener("input", () => {
@@ -26,4 +32,8 @@ searchField.addEventListener("input", () => {
 			fetchData();
 		}
 	}, 800);
+});
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+	suggestionBox.innerText = "";
 });

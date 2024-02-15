@@ -7,8 +7,8 @@
 	</head>
 	<body class="relative">
 		<div id="map" class="h-[100svh]"></div>
-		<div
-			class="flex rounded-xl flex-col bg-white w-[90%] h-[93%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4"
+		<form
+			id="form" class="flex rounded-xl flex-col bg-white w-[90%] h-[93%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4"
 		>
 			<div class="flex justify-end">
 				<button
@@ -39,9 +39,9 @@
 						class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm leading-8"
 						placeholder="Adresse eingeben du Lellek"
 					/>
-					<div id="address-suggestion"></div>
+					<div id="address-suggestion" class="p-2 h-2 text-xs"></div>
 				</div>
-				<fieldset class="mt-4">
+				<fieldset>
 					<legend class="sr-only">Filter</legend>
 					<div class="space-y-5 p-4 flex flex-col">
 						<div class="checkbox-container">
@@ -126,7 +126,8 @@
 							</select>
 						</div>
 						<button
-							type="button"
+							id="resetBtn"
+							type="reset"
 							class="rounded-md mx-auto px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset bg-red-100 hover:bg-red-200"
 						>
 							Filter zurücksetzen
@@ -142,7 +143,7 @@
 					</button>
 				</div>
 			</div>
-		</div>
+		</form>
 		<div class="absolute lg:hidden top-0 z-[8888] h-[100svh] w-screen bg-slate-500 opacity-50"></div>
 		<script type="module" src="src/main.js"></script>
 	</body>
