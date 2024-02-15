@@ -1,6 +1,8 @@
 const searchField = document.getElementById("address-search");
 let timeout = null;
 const suggestionBox = document.getElementById("address-suggestion");
+const form = document.getElementById("form");
+const overlay = document.getElementById("overlay");
 
 async function fetchData() {
 	const res = await fetch(
@@ -37,3 +39,13 @@ searchField.addEventListener("input", () => {
 document.getElementById("resetBtn").addEventListener("click", () => {
 	suggestionBox.innerText = "";
 });
+
+document.getElementById("closeBtn").addEventListener("click", () => {
+	form.classList.add("hidden");
+	overlay.classList.add("hidden");
+});
+
+//document.getElementById("openFormBtn").addEventListener("click", () => {
+// 	form.classList.remove("hidden");
+// 	overlay.classList.remove("hidden");
+// });
