@@ -5,8 +5,144 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>LF10</title>
 	</head>
-	<body>
+	<body class="relative">
 		<div id="map" class="h-screen"></div>
+		<div
+			class="flex rounded-xl flex-col bg-white w-[90%] h-[93%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4"
+		>
+			<div class="flex justify-end">
+				<button
+					type="button"
+					class="relative rounded-md m-3 bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+				>
+					<span class="absolute -inset-2.5"></span>
+					<span class="sr-only">Close panel</span>
+					<svg
+						class="h-10 w-10"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						aria-hidden="true"
+					>
+						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+			<div class="flex flex-col p-6 h-full">
+				<div>
+					<label for="address" class="sr-only">Addresse eingeben</label>
+					<input
+						type="text"
+						name="address"
+						id="address-search"
+						class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm leading-8"
+						placeholder="Adresse eingeben du Lellek"
+					/>
+				</div>
+				<fieldset class="mt-4">
+					<legend class="sr-only">Filter</legend>
+					<div class="space-y-5 p-4 flex flex-col">
+						<div class="checkbox-container">
+							<div class="relative flex items-start">
+								<div class="flex h-6 items-center">
+									<input
+										id="altkleider"
+										name="altkleider"
+										type="checkbox"
+										class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+									/>
+								</div>
+								<div class="ml-3 text-sm leading-6 w-full">
+									<label for="altkleider" class="font-medium w-full block text-gray-900">Altkleider</label>
+								</div>
+							</div>
+							<div class="relative flex items-start">
+								<div class="flex h-6 items-center">
+									<input
+										id="altglas"
+										name="altglas"
+										type="checkbox"
+										class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+									/>
+								</div>
+								<div class="ml-3 text-sm leading-6 w-full">
+									<label for="altglas" class="font-medium w-full block text-gray-900">Altglas</label>
+								</div>
+							</div>
+							<div class="relative flex items-start">
+								<div class="flex h-6 items-center">
+									<input
+										id="recyclinghoefe"
+										name="recyclinghoefe"
+										type="checkbox"
+										class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+									/>
+								</div>
+								<div class="ml-3 text-sm leading-6 w-full">
+									<label for="recyclinghoefe" class="font-medium w-full block text-gray-900">Recyclinghöfe</label>
+								</div>
+							</div>
+							<div class="relative flex items-start">
+								<div class="flex h-6 items-center">
+									<input
+										id="elektrokleingereate"
+										name="elektrokleingereate"
+										type="checkbox"
+										class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+									/>
+								</div>
+								<div class="ml-3 text-sm leading-6 w-full">
+									<label for="elektrokleingereate" class="font-medium w-full block text-gray-900"
+										>Elektrokleingeräte</label
+									>
+								</div>
+							</div>
+							<div class="relative flex items-start">
+								<div class="flex h-6 items-center">
+									<input
+										id="altpapier"
+										name="altpapier"
+										type="checkbox"
+										class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+									/>
+								</div>
+								<div class="ml-3 text-sm leading-6 w-full">
+									<label for="altpapier" class="font-medium w-full block text-gray-900">Altpapier</label>
+								</div>
+							</div>
+						</div>
+						<div>
+							<label for="radius" class="block text-sm font-medium leading-6 text-gray-900">Radius</label>
+							<select
+								id="radius"
+								name="radius"
+								class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							>
+								<option value="1" selected>1 km</option>
+								<option value="5">5 km</option>
+								<option value="10">10 km</option>
+							</select>
+						</div>
+						<button
+							type="button"
+							class="rounded-md mx-auto bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset bg-red-100 hover:bg-red-200"
+						>
+							Filter zurücksetzen
+						</button>
+					</div>
+				</fieldset>
+				<div class="flex mt-auto">
+					<button
+						type="button"
+						class="rounded-md w-full bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+					>
+						Los geht's! 🚀
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="absolute lg:hidden top-0 z-[8888] h-screen w-screen bg-slate-500 opacity-50"></div>
 		<script type="module" src="src/main.js"></script>
 	</body>
 </html>
