@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS locations (
     info TEXT
 );
 
--- INSERT INTO locations (address, coordinates, type) VALUES (
---     '{"street": "Baumeisterstraße 17","postalcode": 20099,"city": "Hamburg"}',
---     POINT(53.55512071027223, 10.010559453442404),
---     'Altglas'
--- );
+INSERT INTO locations (address, coordinates, type) VALUES (
+    '{"street": "Baumeisterstraße 17","postalcode": 20099,"city": "Hamburg"}',
+    POINT(53.55512071027223, 10.010559453442404),
+    'Altglas'
+);
