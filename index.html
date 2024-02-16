@@ -3,18 +3,22 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<link rel="icon" href="favicon.ico" sizes="any">
 		<title>LF10</title>
 	</head>
 	<body class="relative">
 		<div id="map" class="h-[100svh]"></div>
 		<form
-			id="form" class="flex rounded-xl flex-col bg-white w-[90%] h-[93%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4"
+			id="form"
+			class="hidden lg:flex rounded-xl flex-col bg-white w-[90%] h-[93%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4 lg:w-1/5 lg:right-72"
 		>
-			<div class="flex justify-end">
+			<div class="grid grid-cols-3 pt-1">
+				<div></div>
+				<img src="smallpin.svg" class="place-self-center h-14 w-14 mt-3" alt="">
 				<button
-					id="closeBtn"
+					id="close-btn"
 					type="button"
-					class="relative rounded-md m-3 bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+					class="relative self-start place-self-end rounded-md m-3 bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 				>
 					<span class="absolute -inset-2.5"></span>
 					<span class="sr-only">Close panel</span>
@@ -30,7 +34,7 @@
 					</svg>
 				</button>
 			</div>
-			<div class="flex flex-col p-6 h-full">
+			<div class="flex flex-col p-6 h-5/6">
 				<div>
 					<label for="address" class="sr-only">Addresse eingeben</label>
 					<input
@@ -135,7 +139,7 @@
 						</button>
 					</div>
 				</fieldset>
-				<div class="flex mt-auto">
+				<div class="flex">
 					<button
 						type="button"
 						class="rounded-md w-full bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -145,7 +149,38 @@
 				</div>
 			</div>
 		</form>
-		<div id="overlay" class="absolute lg:hidden top-0 z-[8888] h-[100svh] w-screen bg-slate-500 opacity-50"></div>
+		<div id="help-page" class="rounded-xl flex-col bg-white w-[90%] h-[93%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4 lg:w-1/5 lg:right-72 hidden"></div>
+		<div id="overlay" class="absolute hidden top-0 z-[8888] h-[100svh] w-screen bg-slate-500 opacity-50"></div>
+		<button
+			id="filter-btn"
+			type="button"
+			class="absolute p-2 bottom-6 right-4 rounded-full m-3 bg-white z-[7777] text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+		>
+			<span class="absolute -inset-2.5"></span>
+			<span class="sr-only">Open panel</span>
+			<svg class="h-8 w-8" stroke-width="1.5" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+				<path
+					d="M3 4.6c0-.56 0-.84.109-1.054a1 1 0 0 1 .437-.437C3.76 3 4.04 3 4.6 3h14.8c.56 0 .84 0 1.054.109a1 1 0 0 1 .437.437C21 3.76 21 4.04 21 4.6v1.737c0 .245 0 .367-.028.482a1 1 0 0 1-.12.289c-.062.101-.148.187-.321.36l-6.063 6.063c-.173.173-.259.259-.321.36a1 1 0 0 0-.12.289c-.028.115-.028.237-.028.482V17l-4 4v-6.337c0-.244 0-.367-.028-.482a1 1 0 0 0-.12-.289c-.062-.101-.148-.187-.321-.36L3.469 7.469c-.173-.173-.259-.259-.321-.36a1 1 0 0 1-.12-.289C3 6.704 3 6.582 3 6.337V4.6z"
+					stroke="#000"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				/>
+			</svg>
+		</button>
+		<button
+			id="help-btn"
+			type="button"
+			class="absolute p-2 bottom-20 right-4 rounded-full m-3 bg-white z-[7777] text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+		>
+			<span class="absolute -inset-2.5"></span>
+			<span class="sr-only">Open panel</span>
+			<svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
+				<path
+					d="M80 160c0-35.3 28.7-64 64-64h32c35.3 0 64 28.7 64 64v3.6c0 21.8-11.1 42.1-29.4 53.8l-42.2 27.1c-25.2 16.2-40.4 44.1-40.4 74V320c0 17.7 14.3 32 32 32s32-14.3 32-32v-1.4c0-8.2 4.2-15.8 11-20.2l42.2-27.1c36.6-23.6 58.8-64.1 58.8-107.7V160c0-70.7-57.3-128-128-128H144C73.3 32 16 89.3 16 160c0 17.7 14.3 32 32 32s32-14.3 32-32zm80 320a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"
+				/>
+			</svg>
+		</button>
 		<script type="module" src="src/main.js"></script>
 	</body>
 </html>
