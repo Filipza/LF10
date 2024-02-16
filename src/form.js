@@ -9,6 +9,11 @@ const helpPage = document.getElementById("help-page");
 let timeout = null;
 let helpIsOpen = false;
 let formIsOpen = false;
+let desktop = false;
+
+if (window.innerWidth >= 991) {
+	desktop = true;
+}
 
 async function fetchData() {
 	const res = await fetch(
@@ -58,7 +63,9 @@ formBtn.addEventListener("click", () => {
 		helpIsOpen = false;
 		helpPage.classList.add("hidden");
 	} else {
-		overlay.classList.toggle("hidden");
+		if (!desktop) {
+			overlay.classList.toggle("hidden");
+		}
 	}
 });
 
@@ -69,6 +76,17 @@ helpBtn.addEventListener("click", () => {
 		formIsOpen = false;
 		form.classList.add("hidden");
 	} else {
-		overlay.classList.toggle("hidden");
+		if (!desktop) {
+			overlay.classList.toggle("hidden");
+		}
 	}
+});
+
+overlay.addEventListener("click", () => {
+	helpIsOpen = false;
+	formIsOpen = false;
+
+	form.classList.add("hidden");
+	helpPage.classList.add("hidden");
+	overlay.classList.add("hidden");
 });
