@@ -5,7 +5,14 @@ go 1.22.0
 require github.com/everystreet/go-proj/v8 v8.0.0
 
 require (
+	github.com/pkg/errors v0.9.1 // indirect
+	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 // indirect
+	golang.org/x/text v0.3.7 // indirect
+)
+
+require (
 	github.com/golang/geo v0.0.0-20210211234256-740aa86cb551 // indirect
+	github.com/jackc/pgx v3.6.2+incompatible
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/tj/go-spin v1.1.0 // indirect
 	github.com/xlab/c-for-go v0.0.0-20240211170554-623b32c75bc5 // indirect

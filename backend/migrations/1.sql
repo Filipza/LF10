@@ -1,18 +1,49 @@
-CREATE TYPE LOCATION_TYPE AS ENUM ('Altglas', 'Altkleider', 'Altpapier', 'Elektrokleingeräte', 'Recyclinghof');
-
 CREATE TABLE IF NOT EXISTS locations (
     id SERIAL PRIMARY KEY,
-    address JSON NOT NULL,
+    depotNr VARCHAR(15) NOT NULL,
+    city TEXT NOT NULL,
+    postalcode INT NOT NULL,
+    street TEXT NOT NULL,
     coordinates POINT NOT NULL,
-    type LOCATION_TYPE NOT NULL,
+    paperCount INT NOT NULL DEFAULT 0,
+    whiteGlassCount INT NOT NULL DEFAULT 0,
+    greenGlassCount INT NOT NULL DEFAULT 0,
+    brownGlassCount INT NOT NULL DEFAULT 0,
+    electroCount INT NOT NULL DEFAULT 0,
+    clothCount INT NOT NULL DEFAULT 0,
     rating INT,
     info TEXT
 );
 
-INSERT INTO locations (address, coordinates, type, rating, info) VALUES (
-    '{"street": "Baumeisterstraße 17","postalcode": 20099,"city": "Hamburg"}',
-    POINT(53.55512071027223, 10.010559453442404),
-    'Altglas',
-    5,
-    "Cox"
-);
+INSERT INTO
+    locations (
+        depotNr,
+        city,
+        postalcode,
+        street,
+        coordinates,
+        paperCount,
+        whiteGlassCount,
+        greenGlassCount,
+        brownGlassCount,
+        electroCount,
+        clothCount,
+        rating,
+        info
+    )
+VALUES
+    (
+        'DC2015',
+        'Hamburg',
+        22769,
+        'Langenfelder Strasse 121',
+        POINT(53.56901478232307, 9.9444711430707),
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        'Cox'
+    );

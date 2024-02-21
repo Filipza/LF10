@@ -10,12 +10,20 @@ import (
 )
 
 type Location struct {
-	Id          int `json: "id"`
-	Address     string
-	Coordinates pgtype.Point
-	RecType     string
-	Rating      int
-	Info        string
+	Id              int          `json:"id"`
+	DepotNr         string       `json:"depotNr"`
+	City            string       `json:"city"`
+	PostalCode      int          `json:"postalCode"`
+	Street          string       `json:"street"`
+	Coordinates     pgtype.Point `json:"coordinates"`
+	PaperCount      int          `json:"paperCount"`
+	WhiteGlasCount  int          `json:"whiteGlasCount"`
+	GreenGlassCount int          `json:"greenGlasCount"`
+	BrownGlasCount  int          `json:"brownGlasCount"`
+	ElectroCount    int          `json:"electroCount"`
+	ClothCount      int          `json:"clothCount"`
+	Rating          int          `json:"rating"`
+	Info            string       `json:"info"`
 }
 
 func main() {
