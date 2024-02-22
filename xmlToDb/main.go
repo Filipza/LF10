@@ -148,7 +148,7 @@ func ToEPSG25832(coords string, projDefinition string) (*pgtype.Point, error) {
 	}
 
 	point := pgtype.Point{
-		P:     pgtype.Vec2{X: x, Y: y},
+		P:     pgtype.Vec2{X: coord.Y, Y: coord.X},
 		Valid: true,
 	}
 
