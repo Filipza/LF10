@@ -3,18 +3,20 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<link rel="icon" href="favicon.ico" sizes="any">
+		<link rel="icon" href="favicon.ico" sizes="any" />
 		<title>LF10</title>
 	</head>
 	<body class="relative">
 		<div id="map" class="h-[100svh]"></div>
 		<form
 			id="form"
-			class="hidden flex rounded-xl flex-col bg-white w-[90%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4 lg:w-1/5 lg:right-64"
+			action="http://localhost:9000/locations"
+			method="post"
+			class="flex rounded-xl flex-col bg-white w-[90%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4 lg:w-1/5 lg:right-64"
 		>
 			<div class="grid grid-cols-3 pt-1">
 				<div></div>
-				<img src="smallpin.svg" class="place-self-center h-14 w-14 mt-3" alt="">
+				<img src="smallpin.svg" class="place-self-center h-14 w-14 mt-3" alt="" />
 				<button
 					id="close-btn"
 					type="button"
@@ -30,21 +32,22 @@
 						stroke="currentColor"
 						aria-hidden="true"
 					>
-					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
 					</svg>
 				</button>
 			</div>
 			<div class="flex flex-col p-6 h-full">
 				<div>
-					<label for="address" class="sr-only">Addresse eingeben</label>
+					<label for="plz" class="sr-only">Addresse eingeben</label>
 					<input
-						type="text"
-						name="address"
-						id="address-search"
+						type="number"
+						name="plz"
+						id="plz-search"
+						value="22359"
 						class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm leading-8"
 						placeholder="Adresse eingeben du Lellek"
 					/>
-					<div id="address-suggestion" class="p-2 h-2 text-xs"></div>
+					<div id="plz-suggestion" class="p-2 h-2 text-xs"></div>
 				</div>
 				<fieldset>
 					<legend class="sr-only">Filter</legend>
@@ -56,6 +59,7 @@
 										id="altkleider"
 										name="altkleider"
 										type="checkbox"
+										checked
 										class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 									/>
 								</div>
@@ -141,7 +145,8 @@
 				</fieldset>
 				<div class="flex mt-auto">
 					<button
-						type="button"
+						id="submit-btn"
+						type="submit"
 						class="rounded-md w-full bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 					>
 						Los geht's! 🚀
@@ -149,7 +154,10 @@
 				</div>
 			</div>
 		</form>
-		<div id="help-page" class="rounded-xl flex-col bg-white w-[90%] h-[93%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4 lg:w-1/5 lg:right-72 hidden"></div>
+		<div
+			id="help-page"
+			class="rounded-xl flex-col bg-white w-[90%] h-[93%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4 lg:w-1/5 lg:right-72 hidden"
+		></div>
 		<div id="overlay" class="absolute hidden top-0 z-[8888] h-[100svh] w-screen bg-slate-500 opacity-50"></div>
 		<button
 			id="filter-btn"
