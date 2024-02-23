@@ -100,8 +100,5 @@ submitBtn.addEventListener("click", async (e) => {
 	await fetch("http://localhost:9000/locations", {
 		method: "POST",
 		body: formData,
-		headers: {
-			"Content-Type": "multipart/form-data",
-		},
 	});
 });

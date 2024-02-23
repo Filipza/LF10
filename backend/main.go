@@ -1,8 +1,11 @@
 package main
 
 import (
-	"fmt"
+	"context"
+	"encoding/json"
+	"log"
 	"net/http"
+	"strings"
 
 	"github.com/jackc/pgx/v5/pgtype"
 )
@@ -25,59 +28,98 @@ type Location struct {
 }
 
 func main() {
-	// db, err := NewDB()
-	// if err != nil {
-	// 	log.Fatal("Failed to connect to db")
-	// }
-
-	// location1 := Location{}
+	db, err := NewDB()
+	if err != nil {
+		log.Fatal("Failed to connect to db")
+	}
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("POST /locations", func(w http.ResponseWriter, r *http.Request) {
-		// enableCors(&w)
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		r.ParseForm()
+		enableCors(&w)
 
-		plz := r.Form.Get("plz")
-		fmt.Println(plz)
-		// plz := r.FormValue("plz")
-		// altkleider := r.FormValue("altkleider")
-		// altglas := r.FormValue("altglas")
-		// recycling := r.FormValue("recyclinghoefe")
-		// electroDevices := r.FormValue("elektrokleingereate")
-		// paper := r.FormValue("altpapier")
-		// radius := r.FormValue("radius")
-		fmt.Println(r.Form)
-		fmt.Println(r.PostForm)
+		var query strings.Builder
+		var conditions []string
 
-		// db query
-		// 	err := db.conn.QueryRow(context.Background(), "SELECT * FROM locations LIMIT 1").Scan(
-		// 		&location1.Id,
-		// 		&location1.DepotNr,
-		// 		&location1.City,
-		// 		&location1.PostalCode,
-		// 		&location1.Street,
-		// 		&location1.Coordinates,
-		// 		&location1.PaperCount,
-		// 		&location1.WhiteGlasCount,
-		// 		&location1.GreenGlassCount,
-		// 		&location1.BrownGlasCount,
-		// 		&location1.ElectroCount,
-		// 		&location1.ClothCount,
-		// 		&location1.Rating,
-		// 		&location1.Info,
-		// 	)
-		// 	if err != nil {
-		// 		log.Fatal(err)
-		// 	}
+		query.WriteString("SELECT * FROM locations WHERE postalcode = $1")
 
-		// 	// return json
-		// 	fmt.Println(location1)
+		plz := r.FormValue("plz")
+		altkleider := r.FormValue("altkleider")
+		altglas := r.FormValue("altglas")
+		// recycling := r.FormValue("recyclinghoefe") TODO
+		electroDevices := r.FormValue("elektrokleingereate")
+		paper := r.FormValue("altpapier")
+		// radius := r.FormValue("radius") TODO
+
+		if altkleider == "on" {
+			conditions = append(conditions, "clothcount > 0")
+		}
+
+		if altglas == "on" {
+			conditions = append(conditions, "(whiteglasscount > 0 OR greenglasscount > 0 OR brownglasscount > 0)")
+		}
+
+		if electroDevices == "on" {
+			conditions = append(conditions, "electrocount > 0")
+		}
+
+		if paper == "on" {
+			conditions = append(conditions, "paperCount > 0")
+		}
+
+		if len(conditions) > 0 {
+			query.WriteString(" AND (")
+		}
+
+		for i, condition := range conditions {
+			if i > 0 {
+				query.WriteString(" OR")
+			}
+
+			query.WriteString(" ")
+			query.WriteString(condition)
+		}
+
+		if len(conditions) > 0 {
+			query.WriteString(")")
+		}
+
+		var locations []Location
+		rows, err := db.conn.Query(context.Background(), query.String(), plz)
+
+		for rows.Next() {
+			var location Location
+			err := rows.Scan(&location.Id,
+				&location.DepotNr,
+				&location.City,
+				&location.PostalCode,
+				&location.Street,
+				&location.Coordinates,
+				&location.PaperCount,
+				&location.WhiteGlasCount,
+				&location.GreenGlassCount,
+				&location.BrownGlasCount,
+				&location.ElectroCount,
+				&location.ClothCount,
+				&location.Rating,
+				&location.Info,
+			)
+			if err != nil {
+				log.Fatal(err)
+			}
+			locations = append(locations, location)
+		}
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(locations)
 	})
 
-	http.ListenAndServe("localhost:9000", mux)
+	http.ListenAndServe(":9000", mux)
 }
 
-// func enableCors(w *http.ResponseWriter) {
-// 	(*w).Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
-// }
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+}
