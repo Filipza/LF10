@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -17,6 +18,8 @@ type Location struct {
 	PostalCode      int          `json:"postalCode"`
 	Street          string       `json:"street"`
 	Coordinates     pgtype.Point `json:"coordinates"`
+	X               float64      `json:"x"`
+	Y               float64      `json:"y"`
 	PaperCount      int          `json:"paperCount"`
 	WhiteGlasCount  int          `json:"whiteGlasCount"`
 	GreenGlassCount int          `json:"greenGlasCount"`
@@ -66,6 +69,11 @@ func main() {
 			conditions = append(conditions, "paperCount > 0")
 		}
 
+		if altkleider != "on" && altglas != "on" && electroDevices != "on" && paper != "on" {
+			writeJson(&w, []Location{})
+			return
+		}
+
 		if len(conditions) > 0 {
 			query.WriteString(" AND (")
 		}
@@ -82,6 +90,8 @@ func main() {
 		if len(conditions) > 0 {
 			query.WriteString(")")
 		}
+
+		fmt.Println(query.String())
 
 		var locations []Location
 		rows, err := db.conn.Query(context.Background(), query.String(), plz)
@@ -103,6 +113,10 @@ func main() {
 				&location.Rating,
 				&location.Info,
 			)
+
+			location.X = location.Coordinates.P.X
+			location.Y = location.Coordinates.P.Y
+
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -113,8 +127,7 @@ func main() {
 			log.Fatal(err)
 		}
 
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(locations)
+		writeJson(&w, locations)
 	})
 
 	http.ListenAndServe(":9000", mux)
@@ -122,4 +135,9 @@ func main() {
 
 func enableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+}
+
+func writeJson(w *http.ResponseWriter, locations []Location) {
+	(*w).Header().Set("Content-Type", "application/json")
+	json.NewEncoder(*w).Encode(locations)
 }

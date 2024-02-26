@@ -43,7 +43,6 @@
 						type="number"
 						name="plz"
 						id="plz-search"
-						value="22359"
 						class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm leading-8"
 						placeholder="Adresse eingeben du Lellek"
 					/>
@@ -73,6 +72,7 @@
 										id="altglas"
 										name="altglas"
 										type="checkbox"
+										checked
 										class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 									/>
 								</div>
@@ -85,6 +85,7 @@
 									<input
 										id="recyclinghoefe"
 										name="recyclinghoefe"
+										checked
 										type="checkbox"
 										class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 									/>
@@ -98,6 +99,7 @@
 									<input
 										id="elektrokleingereate"
 										name="elektrokleingereate"
+										checked
 										type="checkbox"
 										class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 									/>
@@ -113,6 +115,7 @@
 									<input
 										id="altpapier"
 										name="altpapier"
+										checked
 										type="checkbox"
 										class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
 									/>
@@ -158,7 +161,7 @@
 			id="help-page"
 			class="rounded-xl flex-col bg-white w-[90%] h-[93%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4 lg:w-1/5 lg:right-72 hidden"
 		></div>
-		<div id="overlay" class="absolute hidden top-0 z-[8888] h-[100svh] w-screen bg-slate-500 opacity-50"></div>
+		<div id="overlay" class="absolute lg:hidden top-0 z-[8888] h-[100svh] w-screen bg-slate-500 opacity-50"></div>
 		<button
 			id="filter-btn"
 			type="button"
