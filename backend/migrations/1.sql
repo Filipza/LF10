@@ -2,6 +2,7 @@
 CREATE EXTENSION cube;
 CREATE EXTENSION earthdistance;
 
+-- create locations table
 CREATE TABLE IF NOT EXISTS locations (
     id SERIAL PRIMARY KEY,
     depotNr VARCHAR(15) NOT NULL,

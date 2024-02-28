@@ -21,6 +21,10 @@ if (window.innerWidth >= 991) {
 	desktop = true;
 }
 
+/**
+ * Fetches data from the OpenStreetMap API based on the provided search field value.
+ * @returns {Promise<void>} A promise that resolves when the data is fetched and processed.
+ */
 async function fetchData() {
 	const res = await fetch(
 		`https://nominatim.openstreetmap.org/search?addressdetails=1&postalcode=${searchField.value}&countrycodes=de&format=jsonv2&limit=4`,
@@ -29,6 +33,10 @@ async function fetchData() {
 	fillSuggestionBox(searchRes);
 }
 
+/**
+ * Fills the suggestion box with the address information.
+ * @param {Array} searchRes - The search result containing address information.
+ */
 function fillSuggestionBox(searchRes) {
 	let plz = searchRes[0]?.address?.postcode;
 	let suburb = searchRes[0]?.address?.suburb ?? searchRes[0]?.address?.city_district;
@@ -126,6 +134,11 @@ submitBtn.addEventListener("click", async (e) => {
 	}
 });
 
+/**
+ * Sets markers on the map for given locations and adds a marker for the current position.
+ * @param {Array} locations - An array of location objects.
+ * @param {Array} currentPos - An array representing the current position.
+ */
 export function setMarkersForLocations(locations, currentPos) {
 	for (const location of locations) {
 		const marker = L.marker([location.x, location.y]);

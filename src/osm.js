@@ -6,6 +6,7 @@ const form = document.getElementById("form");
 
 export let map = L.map("map").setView([53.49967738513314, 10.0028454236408], 16);
 
+// Use the Geolocation API to get the current position of the device & fetch the locations
 navigator.geolocation.getCurrentPosition(async (position) => {
 	let lat = position.coords.latitude;
 	let lon = position.coords.longitude;
