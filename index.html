@@ -12,7 +12,7 @@
 			id="form"
 			action="http://localhost:9000/locations"
 			method="post"
-			class="flex rounded-xl flex-col bg-white w-[90%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4 lg:w-1/5 lg:right-64"
+			class="hidden flex rounded-xl flex-col bg-white w-[90%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4 lg:w-1/5 lg:right-64"
 		>
 			<div class="grid grid-cols-3 pt-1">
 				<div></div>
@@ -132,9 +132,9 @@
 								name="radius"
 								class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							>
-								<option value="1" selected>1 km</option>
-								<option value="5">5 km</option>
-								<option value="10">10 km</option>
+								<option value="1000" selected>1 km</option>
+								<option value="5000">5 km</option>
+								<option value="10000">10 km</option>
 							</select>
 						</div>
 						<button
@@ -161,7 +161,7 @@
 			id="help-page"
 			class="rounded-xl flex-col bg-white w-[90%] h-[93%] z-[9999] absolute bottom-2/4 translate-y-2/4 right-2/4 translate-x-2/4 lg:w-1/5 lg:right-72 hidden"
 		></div>
-		<div id="overlay" class="absolute lg:hidden top-0 z-[8888] h-[100svh] w-screen bg-slate-500 opacity-50"></div>
+		<div id="overlay" class="absolute hidden top-0 z-[8888] h-[100svh] w-screen bg-slate-500 opacity-50"></div>
 		<button
 			id="filter-btn"
 			type="button"

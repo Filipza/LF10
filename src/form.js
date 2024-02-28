@@ -105,6 +105,8 @@ submitBtn.addEventListener("click", async (e) => {
 	layerGroup.clearLayers();
 
 	const formData = new FormData(form);
+	formData.set("lat", searchRes[0].lat);
+	formData.set("lon", searchRes[0].lon);
 
 	const res = await fetch("http://localhost:9000/locations", {
 		method: "POST",
@@ -117,10 +119,16 @@ submitBtn.addEventListener("click", async (e) => {
 		alert("Keine Ergebnisse");
 	}
 
-	console.log(locations);
+	setMarkersForLocations(locations, [searchRes[0].lat, searchRes[0].lon]);
 
+	if (searchRes.length > 0) {
+		map.flyTo([searchRes[0].lat, searchRes[0].lon], 13);
+	}
+});
+
+export function setMarkersForLocations(locations, currentPos) {
 	for (const location of locations) {
-		const marker = L.marker([location.x, location.y]).addTo(map);
+		const marker = L.marker([location.x, location.y]);
 		marker.bindPopup(`
 			<p class="popup-containernumber font-bold">Depotnummer: ${location.depotNr}</p>
 			<p>
@@ -128,6 +136,7 @@ submitBtn.addEventListener("click", async (e) => {
 				<div class="mb-1">${location.street}</div>
 				<div class="mb-1">${location.postalCode}, ${location.city}</div>
 				<div class="mb-1">(${location.info})</div>
+				<div>Altkleidercontainer-Rating: <span class="star-container">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div>
 			</p>
 			<div class="mb-1 font-bold">Anzahl Container:</div>
 			<ul>
@@ -154,7 +163,8 @@ submitBtn.addEventListener("click", async (e) => {
 		layerGroup.addLayer(marker).addTo(map);
 	}
 
-	if (searchRes.length > 0) {
-		map.setView([searchRes[0].lat, searchRes[0].lon], 13);
-	}
-});
+	const currentLocationMarker = L.marker(currentPos).addTo(map);
+	L.DomUtil.addClass(currentLocationMarker._icon, "custom-marker-class");
+	currentLocationMarker.bindPopup("<div>Du bist hier</div>");
+	layerGroup.addLayer(currentLocationMarker).addTo(map);
+}

@@ -11,3 +11,11 @@
 		display: block;
 	}
 }
+
+.star-container {
+	color: gold;
+}
+
+.custom-marker-class {
+	filter: hue-rotate(160deg);
+}
