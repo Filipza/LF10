@@ -29,6 +29,7 @@ type Location struct {
 	ClothCount      int          `json:"clothCount"`
 	Rating          int          `json:"rating"`
 	Info            string       `json:"info"`
+	Distance        string       `json:"distance"`
 }
 
 func main() {
@@ -44,15 +45,19 @@ func main() {
 		var query strings.Builder
 		var conditions []string
 
-		query.WriteString("SELECT * FROM locations WHERE postalcode = $1")
-
-		plz := r.FormValue("plz")
-		altkleider := r.FormValue("altkleider")
+		lat := r.FormValue("lat")
+		lon := r.FormValue("lon")
+		radius := r.FormValue("radius")
 		altglas := r.FormValue("altglas")
-		// recycling := r.FormValue("recyclinghoefe") TODO
-		electroDevices := r.FormValue("elektrokleingereate")
 		paper := r.FormValue("altpapier")
-		// radius := r.FormValue("radius") TODO
+		altkleider := r.FormValue("altkleider")
+		electroDevices := r.FormValue("elektrokleingereate")
+
+		coordString := fmt.Sprintf("SELECT *, (coordinates <-> point '(%v, %v)') AS distance FROM locations WHERE ", lat, lon)
+
+		query.WriteString(coordString)
+		queryString := fmt.Sprintf("earth_box(ll_to_earth(%v, %v), %v) @> ll_to_earth(coordinates[0], coordinates[1]) ", lat, lon, radius)
+		query.WriteString(queryString)
 
 		if altkleider == "on" {
 			conditions = append(conditions, "clothcount > 0")
@@ -92,10 +97,8 @@ func main() {
 			query.WriteString(")")
 		}
 
-		fmt.Println(query.String())
-
 		var locations []Location
-		rows, err := db.conn.Query(context.Background(), query.String(), plz)
+		rows, err := db.conn.Query(context.Background(), query.String())
 
 		for rows.Next() {
 			var location Location
@@ -113,6 +116,7 @@ func main() {
 				&location.ClothCount,
 				&location.Rating,
 				&location.Info,
+				&location.Distance,
 			)
 
 			location.X = location.Coordinates.P.X
@@ -138,7 +142,6 @@ func main() {
 	}
 
 	fmt.Println("Server is running...")
-
 }
 
 func enableCors(w *http.ResponseWriter) {
