@@ -1,3 +1,7 @@
+-- enable psql radius extension
+CREATE EXTENSION cube;
+CREATE EXTENSION earthdistance;
+
 CREATE TABLE IF NOT EXISTS locations (
     id SERIAL PRIMARY KEY,
     depotNr VARCHAR(15) NOT NULL,
@@ -14,36 +18,3 @@ CREATE TABLE IF NOT EXISTS locations (
     rating INT,
     info TEXT
 );
-
-INSERT INTO
-    locations (
-        depotNr,
-        city,
-        postalcode,
-        street,
-        coordinates,
-        paperCount,
-        whiteGlassCount,
-        greenGlassCount,
-        brownGlassCount,
-        electroCount,
-        clothCount,
-        rating,
-        info
-    )
-VALUES
-    (
-        'DC2015',
-        'Hamburg',
-        22769,
-        'Langenfelder Strasse 121',
-        POINT(53.56901478232307, 9.9444711430707),
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        'Cox'
-    );
