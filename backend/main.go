@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/jackc/pgx/v5/pgtype"
@@ -130,7 +131,14 @@ func main() {
 		writeJson(&w, locations)
 	})
 
-	http.ListenAndServe(":9000", mux)
+	err = http.ListenAndServe(":9000", mux)
+	if err != nil {
+		fmt.Println("Could not start server")
+		os.Exit(1)
+	}
+
+	fmt.Println("Server is running...")
+
 }
 
 func enableCors(w *http.ResponseWriter) {
